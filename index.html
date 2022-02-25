@@ -112,7 +112,7 @@
 	let txt = "";
 	let dataa = []
 	// what to do 
-	x = fetch('json.json').then(results => results.json()).then(data => {
+	fetch('json.json').then(results => results.json()).then(data => {
 		dataa = Object.assign({}, data);
 		// loop for how many in data
 		for (x in dataa) {
