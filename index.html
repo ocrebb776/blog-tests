@@ -2,87 +2,125 @@
 <html>
 
 <head>
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
 	<script src="https://ocrebb776.github.io/ocrebb-reuse/index.js"></script>
 	<style>
-	body {
-		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-	}
+		body {
+			font-family: Tahoma;
+			font-size: 0;
+		}
 
-	.box {
-		background-color: rgb(146, 146, 146);
-		color: rgb(255, 255, 255);
-		width: 500px;
-		height: fit-content;
-		border-radius: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
-		max-width: 30%;
-		padding-bottom: 4px;
-	}
+		/* width */
+		::-webkit-scrollbar {
+			width: 10px;
+		}
 
-	.box:active {
-		background-color: rgb(202, 202, 202);
-	}
+		/* Track */
+		::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
 
-	#dem {
-		border: 3px solid black;
-		width: 48%;
-		height: fit-content;
-		border-radius: 10px;
-		padding-left: 10px;
-		max-width: 60%;
-		padding-bottom: 4px;
-		position: absolute;
-		margin-left: 40%;
-		min-height: 100px;
-		text-align: center;
-		margin-right: 10vw;
-	}
+		/* Handle */
+		::-webkit-scrollbar-thumb {
+			background: #888;
+		}
 
-	h1 {
-		display: inline;
-	}
+		/* Handle on hover */
+		::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
 
-	h2 {
-		display: inline;
-	}
+		.box {
+			background-color: rgb(146, 146, 146);
+			color: rgb(255, 255, 255);
+			height: fit-content;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+			width: 90%;
+			padding-bottom: 4px;
+			font-size: 20px;
 
-	img {
-		max-width: 100%;
-		height: fit-content;
-		max-height: 700px;
-	}
+		}
 
-	.left {
-		float: right;
-	}
+		.box:active {
+			background-color: rgb(202, 202, 202);
+		}
+
+		#dem {
+			margin-top: 5vh;
+			width: 0%;
+			height: fit-content;
+			border-radius: 10px;
+			padding-left: 10px;
+			max-width: 60%;
+			padding-bottom: 4px;
+			position: absolute;
+			margin-left: 40%;
+			min-height: 0;
+			text-align: center;
+			margin-right: 10vw;
+			font-size: 20px;
+		}
+
+		h1 {
+			display: inline;
+		}
+
+		h2 {
+			display: inline;
+		}
+
+		img {
+			max-width: 100%;
+			height: fit-content;
+			max-height: 700px;
+		}
+
+		.left {
+			float: right;
+		}
+
+		#scroll {
+			overflow-y: scroll;
+			width: 100%;
+			height: 99vh;
+			margin-top: -1vh;
+			margin-bottom: 0;
+			font-size: 20px;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="dem"></div>
-	<h1>List of blog items</h1>
-	<ul>
+	<ul id="scroll">
+		<h1>Blogs</h1>
 		<p id="demo"></p>
 	</ul>
 </body>
 <script>
-// function opens stuff
-function openview(id, ti, des, con) {
-	document.getElementById("dem").innerHTML = '<div class="main"><h1>' + ti + '</h1><br><h2>' + des + '</h2>' + con + '</div>';
-}
-let txt = "";
-let dataa = []
-// what to do 
-x = fetch('json.json').then(results => results.json()).then(data => {
-	dataa = Object.assign({}, data);
-	// loop for how many in data
-	for(x in dataa) {
-		// create boxes
-		txt += '<div id="' + dataa[x].id + '" class="box" onclick="openview(' + dataa[x].id + ',`' + dataa[x].title + '`,`' + dataa[x].desc + '`,`' + dataa[x].contents + '`)"><h1 style="display:inline;" >' + data[x].title + '</h1><br>' + data[x].desc + '<span class="left">by ' + data[x].auth + ' - ' + data[x].time + '</span></div><br>';
-	}; //display boxes
-	document.getElementById("demo").innerHTML = txt;
-});
+
+	// function opens stuff
+	function openview(id, ti, des, con) {
+		document.getElementById("scroll").style.width = "30%";
+		document.getElementById("dem").style.width = "48%";
+		document.getElementById("dem").style.minheight = "100px";
+		document.getElementById("dem").style.border = "3px solid black"
+		document.getElementById("dem").innerHTML = '<div class="main"><h1>' + ti + '</h1><br><h2>' + des + '</h2><br>' + con.replace(/,/g, "<br>") + '</div>';
+	}
+	let txt = "";
+	let dataa = []
+	// what to do 
+	x = fetch('json.json').then(results => results.json()).then(data => {
+		dataa = Object.assign({}, data);
+		// loop for how many in data
+		for (x in dataa) {
+			// create boxes
+			txt += '<div id="' + dataa[x].id + '" class="box" onclick="openview(' + dataa[x].id + ',`' + dataa[x].title + '`,`' + dataa[x].desc + '`,`' + dataa[x].contents + '`)"><h1 style="display:inline;" >' + data[x].title + '</h1><br>' + data[x].desc + '<span class="left">by ' + data[x].auth + ' - ' + data[x].time + '</span></div><br>';
+		}; //display boxes
+		document.getElementById("demo").innerHTML = txt;
+	});
 </script>
 </script>
 
