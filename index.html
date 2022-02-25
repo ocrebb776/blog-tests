@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ocrebb776.github.io/ocrebb-reuse/index.js"></script>
+	<style>
+	body {
+		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+	}
+
+	.box {
+		background-color: rgb(146, 146, 146);
+		color: rgb(255, 255, 255);
+		width: 500px;
+		height: fit-content;
+		border-radius: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		max-width: 30%;
+		padding-bottom: 4px;
+	}
+
+	.box:active {
+		background-color: rgb(202, 202, 202);
+	}
+
+	#dem {
+		border: 3px solid black;
+		width: 48%;
+		height: fit-content;
+		border-radius: 10px;
+		padding-left: 10px;
+		max-width: 60%;
+		padding-bottom: 4px;
+		position: absolute;
+		margin-left: 40%;
+		min-height: 100px;
+		text-align: center;
+		margin-right: 10vw;
+	}
+
+	h1 {
+		display: inline;
+	}
+
+	h2 {
+		display: inline;
+	}
+
+	img {
+		max-width: 100%;
+		height: fit-content;
+		max-height: 700px;
+	}
+
+	.left {
+		float: right;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="dem"></div>
+	<h1>List of blog items</h1>
+	<ul>
+		<p id="demo"></p>
+	</ul>
+</body>
+<script>
+// function opens stuff
+function openview(id, ti, des, con) {
+	document.getElementById("dem").innerHTML = '<div class="main"><h1>' + ti + '</h1><br><h2>' + des + '</h2>' + con + '</div>';
+}
+let txt = "";
+let dataa = []
+// what to do 
+x = fetch('json.json').then(results => results.json()).then(data => {
+	dataa = Object.assign({}, data);
+	// loop for how many in data
+	for(x in dataa) {
+		// create boxes
+		txt += '<div id="' + dataa[x].id + '" class="box" onclick="openview(' + dataa[x].id + ',`' + dataa[x].title + '`,`' + dataa[x].desc + '`,`' + dataa[x].contents + '`)"><h1 style="display:inline;" >' + data[x].title + '</h1><br>' + data[x].desc + '<span class="left">by ' + data[x].auth + ' - ' + data[x].time + '</span></div><br>';
+	}; //display boxes
+	document.getElementById("demo").innerHTML = txt;
+});
+</script>
+</script>
+
+</html>
