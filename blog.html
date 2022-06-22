@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <script src="https://ocrebb776.github.io/ocrebb-reuse/index.js"></script>
+    <style>
+        body {
+            font-family: arial;
+            font-size: 10px;
+        }
+        /* width */
+        
+         ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 10px;
+        }
+        /* Track */
+        
+         ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        /* Handle */
+        
+         ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        /* Handle on hover */
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .box {
+            width: 100%;
+            text-align: center;
+            background-color: #eee;
+            padding: 50px;
+            font-size: 20px;
+        }
+        
+        #dem {
+            position: absolute;
+            background-color: white;
+            font-size: 30px;
+            text-align: center;
+        }
+        
+        button {
+            width: 90px;
+            padding: 20px;
+            background-color: white;
+            border: none;
+            border: #eee 3px solid;
+        }
+        
+        button:hover {
+            background-color: #EEE;
+        }
+        
+        #scroll {
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 60px;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="dem"></div>
+    <div id="scroll">
+        <h2>Blogs <br><button onclick="window.location.href = 'index.html'">Home</button></h2>
+        <p id="demo"></p>
+    </div>
+</body>
+<script>
+    // function opens stuff
+    function openview(id, ti, des, con) {
+        document.getElementById("scroll").style.display = "none";
+        document.getElementById("dem").style.minheight = "100px";
+        document.getElementById("dem").innerHTML = '<div class="main"><button onclick="location.reload()">Back</button><h1>' + ti + '</h1><br><h2>' + des + '</h2><br>' + con.replace(/, /g, "<br>") + '</div>';
+    }
+
+    let txt = "";
+    let dataa = [] // what to do 
+    fetch('json.json').then(results => results.json()).then(data => {
+            dataa = Object.assign({}, data);
+            // loop for how many in data
+            for (x in dataa) {
+                // create boxes
+                txt += '<div id="' + dataa[x].id + '" class="box" onclick="openview(' + dataa[x].id + ',`' + dataa[x].title + '`,`' + dataa[x].desc + '`,`' + dataa[x].contents + '`)"><h1 style="display:inline;" >' + data[x].title + '</h1><br>' + data[x].desc + '<br>by ' + data[x].auth + ' - ' + data[x].time + '</div><br>';
+            }; //display boxes
+            document.getElementById("demo").innerHTML = txt;
+        }
+
+    );
+</script>
+</script>
+
+</html>

@@ -1,127 +1,47 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
 
 <head>
-	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
-	<script src="https://ocrebb776.github.io/ocrebb-reuse/index.js"></script>
-	<style>
-		body {
-			font-family: Tahoma;
-			font-size: 0;
-		}
-
-		/* width */
-		::-webkit-scrollbar {
-			width: 10px;
-		}
-
-		/* Track */
-		::-webkit-scrollbar-track {
-			background: #f1f1f1;
-		}
-
-		/* Handle */
-		::-webkit-scrollbar-thumb {
-			background: #888;
-		}
-
-		/* Handle on hover */
-		::-webkit-scrollbar-thumb:hover {
-			background: #555;
-		}
-
-		.box {
-			background-color: rgb(146, 146, 146);
-			color: rgb(255, 255, 255);
-			height: fit-content;
-			border-radius: 10px;
-			padding-left: 10px;
-			padding-right: 10px;
-			width: 90%;
-			padding-bottom: 4px;
-			font-size: 20px;
-
-		}
-
-		.box:active {
-			background-color: rgb(202, 202, 202);
-		}
-
-		#dem {
-			margin-top: 5vh;
-			width: 0%;
-			height: fit-content;
-			border-radius: 10px;
-			padding-left: 10px;
-			max-width: 60%;
-			padding-bottom: 4px;
-			position: absolute;
-			margin-left: 40%;
-			min-height: 0;
-			text-align: center;
-			margin-right: 10vw;
-			font-size: 20px;
-		}
-
-		h1 {
-			display: inline;
-		}
-
-		h2 {
-			display: inline;
-		}
-
-		img {
-			max-width: 100%;
-			height: fit-content;
-			max-height: 700px;
-		}
-
-		.left {
-			float: right;
-		}
-
-		#scroll {
-			overflow-y: scroll;
-			width: 100%;
-			height: 99vh;
-			margin-top: -1vh;
-			margin-bottom: 0;
-			font-size: 20px;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Oliver Crebbin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<div id="dem"></div>
-	<ul id="scroll">
-		<h1>Blogs</h1>
-		<p id="demo"></p>
-	</ul>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="header">
+        Oliver Crebbin
+        <div class="options">
+            <button onclick="window.location.href = 'index.html'">Home</button>
+            <button onclick="window.location.href = 'blog.html'">blog</button>
+            <button onclick="window.location = 'https://github.com/ocrebb776'">github</button>
+            <button onclick="window.location.href = '#'">linktree</button>
+        </div>
+    </div>
+    <div class="title "></div>
+    <div class="bg-text ">
+        Oliver Crebbin
+    </div>
+    <br><br>
+    <iframe src="blog.html " id="frame "></iframe>
 </body>
 <script>
+    // Selecting the iframe element
+    var iframe = document.getElementById("frame ");
 
-	// function opens stuff
-	function openview(id, ti, des, con) {
-		document.getElementById("scroll").style.width = "30%";
-		document.getElementById("dem").style.width = "48%";
-		document.getElementById("dem").style.minheight = "100px";
-		document.getElementById("dem").style.border = "3px solid black"
-		document.getElementById("dem").innerHTML = '<div class="main"><h1>' + ti + '</h1><br><h2>' + des + '</h2><br>' + con.replace(/,/g, "<br>") + '</div>';
-	}
-	let txt = "";
-	let dataa = []
-	// what to do 
-	fetch('json.json').then(results => results.json()).then(data => {
-		dataa = Object.assign({}, data);
-		// loop for how many in data
-		for (x in dataa) {
-			// create boxes
-			txt += '<div id="' + dataa[x].id + '" class="box" onclick="openview(' + dataa[x].id + ',`' + dataa[x].title + '`,`' + dataa[x].desc + '`,`' + dataa[x].contents + '`)"><h1 style="display:inline;" >' + data[x].title + '</h1><br>' + data[x].desc + '<span class="left">by ' + data[x].auth + ' - ' + data[x].time + '</span></div><br>';
-		}; //display boxes
-		document.getElementById("demo").innerHTML = txt;
-	});
-</script>
+    // Adjusting the iframe height onload event
+    iframe.onmouseenter = function() {
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    }
 </script>
 
 </html>
